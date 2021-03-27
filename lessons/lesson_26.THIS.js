@@ -60,3 +60,21 @@ const double = count.bind(2); // this это 2
 console.log(double(3));
 console.log(double(33));
 console.log(double(333));
+
+const btn = document.querySelector('.add');
+
+btn.addEventListener('click', function () {
+    console.log(this);
+});
+
+const objeckt = {
+    num: 5,
+    sayNumber: function () {
+        const say = () => {
+            console.log(this);
+        };
+        say();
+    }
+};
+
+objeckt.sayNumber();
