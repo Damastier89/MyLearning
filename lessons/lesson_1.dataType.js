@@ -14,8 +14,8 @@ const leftBorderWidth = 5;
  * - Symbol()
  */
 console.log(2020, 1.5);
-console.log(20 * 'asdasd');
-console.log(1 / 0);
+console.log(20 * 'asdasd'); // NaN
+console.log(1 / 0); // Infinity
 
 console.log('Hello', "Hello", `Hello`);
 
@@ -38,16 +38,17 @@ console.log(Symbol());
  */
 
 const user = {
-    name: 'Sergey',
-    age: 30
+    name: 'Sergei',
+    age: 30,
+    isMarried: false,
 };
 console.log(user.name);
+console.log(user["age"]);
 
-let arr = ['white', 1, 'black', {},
-    [], 'number'
-];
+// Массив, часный случай объекта
+let arr = ['white', 1, 'black', {}, [], 'number'];
 console.log(arr[2]);
-
+console.log(typeof(arr));
 /**
 /* Особености:
 * 1. JS динамически типизированный язык

@@ -4,7 +4,7 @@
 console.log(result); */
 
 /* const answer = prompt('Are you 18?', "18");
-console.log(answer + 5); */
+console.log(answer + 5); */ // конкатенация
 
 const answers = [];
 
@@ -14,7 +14,7 @@ answers[2] = prompt("Are you happy?", ''); */
 
 /* document.write(answers); */
 
-console.log(typeof (answers));
+console.log(typeof (answers)); // string
 
 console.log(typeof 42);
 // expected output: "number"
