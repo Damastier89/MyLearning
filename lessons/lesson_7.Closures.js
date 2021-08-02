@@ -4,8 +4,9 @@ let number = 15;
 
 function showFirstMassage(text) {
     console.log(text);
-    let number = 10;
-    console.log(number);
+    let num = 10;
+    console.log(num);
+    console.log(number); 
 }
 
 showFirstMassage('Hello');
@@ -35,6 +36,7 @@ const calc = (a, b) => {
 
 };
 // Замыкание!!!!!!!!!
+// Замыкание — это коллекция всех переменных из области видимости во время создания функции.
 function getUrl(url) {
     let domen = '.com';
     return function () {
