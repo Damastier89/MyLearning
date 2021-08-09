@@ -64,8 +64,8 @@ newArray.push('d');
 console.log(newArray);
 
 const video = ['youtube', 'rutube', 'vk'],
-	blogs = ['wordpress', 'blogger', 'livejournal'],
-	internet = [...video, ...blogs, 'facebook'];
+      blogs = ['wordpress', 'blogger', 'livejournal'],
+      internet = [...video, ...blogs, 'facebook'];
 
 console.log(internet);
 

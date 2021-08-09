@@ -5,7 +5,7 @@ const leftBorderWidth = 5;
 
 /**
  * Типы данных:
- /* 1. Примитивные
+/* 1. Примитивные
  * - Number: 2020, 1.5, NaN, Infinity
  * - String: 'Hello', "Hello", `Hello`
  * - Boolean: true, false
@@ -56,3 +56,21 @@ console.log(typeof(arr));
 * 3. Нам не нужно определять тип данных при создании переменных
 * 4. Если мы хотим использовать статическую типизацию мы можем использовать TypeScript или Flow
 */
+
+// Приведение типов 
+
+"" + 1 + 0 // "10" ok
+"" - 1 + 0 // -1 not
+true + false // 1 not
+6 / "3" // 2 ok
+"2" * "3" // 6 ok
+4 + 5 + "px" // "9px" ok
+"$" + 4 + 5 // "$45" ok 
+"4" - 2 // 2 ok
+"4px" - 2 // NaN ok
+7 / 0 // infinity ok
+"  -9  " + 5 // " -9 5" not
+"  -9  " - 5 // -14 ok 
+null + 1 // 1 not
+undefined + 1 // NaN not 
+" \t \n" - 2 // -2 not
