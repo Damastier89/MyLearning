@@ -16,6 +16,142 @@ const options = {
 console.log(options.makeTest('Sergey'));
 console.log(options.colors.bg);
 
+let user = {
+  name: "John",
+  age: 30
+};
+
+let key = prompt("Что вы хотите узнать о пользователе?", "name");
+
+// доступ к свойству через переменную
+alert( user[key] );
+
+// Проверка существования свойства, оператор «in»
+let user = { name: "John", age: 30 };
+
+alert( "age" in user ); // true, user.age существует
+alert( "blabla" in user ); // false, user.blabla не существует
+
+let user1 = {
+  name: "John",
+  age: 30,
+  isAdmin: true
+};
+
+for (let key in user1) {
+  user[key] = 'Новое значение ключа'
+  console.log(`ключ обьекта `, key); // ключ обьекта
+  console.log(`значения ключа `, user[key]);// значения ключа
+}
+
+// свойства упорядочены особым образом: 
+// свойства с целочисленными ключами сортируются по возрастанию, 
+// остальные располагаются в порядке создания.
+
+let codes = {
+  "49": "Германия",
+  "41": "Швейцария",
+  "44": "Великобритания",
+  // ..,
+  "1": "США"
+};
+
+for (let code in codes) {
+  console.log(typeof(code), code); // 1, 41, 44, 49
+}
+// мы можем схитрить, 
+// сделав коды не целочисленными свойствами. 
+// Добавления знака "+" перед каждым кодом будет достаточно.
+
+let code = {
+  "+49": "Германия",
+  "+41": "Швейцария",
+  "+44": "Великобритания",
+  // ..,
+  "+1": "США"
+};
+
+for (let codes in code) {
+  console.log( typeof(+codes), +codes ); // 49, 41, 44, 1
+}
+
+let schedule = {};
+// функция, которая возвращает true, если у объекта нет свойств, иначе false.
+function isEmpty(value) {
+  for (let key in value) {
+    return true;
+  }
+  return false; 
+}
+
+let salaries = {
+  John: 100,
+  Ann: 160,
+  Pete: 130,
+  Ken: 110,
+}
+
+function plusValueObj(obj) {
+  let sum = 0;
+  for (let key in obj){
+    sum = sum + obj[key];
+  }
+  return sum;
+}
+
+let menu = {
+  width: 200,
+  height: 300,
+  title: "My menu"
+};
+console.log(menu);
+
+function multiplyNumeric(obj) {
+  for (let key in obj) {
+    if(typeof obj[key] == 'number') {
+      obj[key] *= 2;
+    }
+  }
+}
+
+// Copy object
+// Если принимающий объект (user) уже имеет свойство с таким именем, 
+// оно будет перезаписано:
+
+let user = { name: 'Sergei'},
+    surname = { surname:'Lantsev'},
+    isMarried = { isMarried: true };
+
+Object.assign(user , surname, isMarried);
+
+console.log(user);
+
+function marry(man, woman) {
+  man.wife = man;
+  woman.husband = woman;
+
+  return {
+    father: man,
+    mother: woman,
+  }
+}
+
+let family = marry({name: 'Sergei'}, {name: 'Kate'});
+console.log(family);
+
+/* Объекты – это ассоциативные массивы с рядом дополнительных возможностей.
+
+Они хранят свойства (пары ключ-значение), где:
+Ключи свойств должны быть строками или символами (обычно строками).
+Значения могут быть любого типа.
+Чтобы получить доступ к свойству, мы можем использовать:
+Запись через точку: obj.property.
+Квадратные скобки obj["property"]. Квадратные скобки позволяют взять ключ из переменной, например, obj[varWithKey].
+Дополнительные операторы:
+Удаление свойства: delete obj.prop.
+Проверка существования свойства: "key" in obj.
+Перебор свойств объекта: цикл for for (let key in obj). */
+
 /////////////////// Деструктуризация ///////////////////////
 const user = {};
 [user.name, user.surname] = 'Sergei Lantsev'.split(' ');

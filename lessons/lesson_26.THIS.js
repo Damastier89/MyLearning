@@ -78,3 +78,27 @@ const objeckt = {
 };
 
 objeckt.sayNumber();
+
+const user = {
+    name: 'Sergei',
+    age: 32,
+    sayHello() {
+      console.log(`Hello `, this.name, user.name);
+    },
+  }
+  user.sayHello();
+  
+  // Значение this вычисляется во время выполнения кода и зависит от контекста.
+  
+  let customers = {name: 'Sergei'};
+  let admin = {name: 'Kate'};
+  
+  function sayHi() {
+    console.log(`Hello`, this.name);
+  }
+  
+  customers.foo = sayHi;
+  admin.foo = sayHi;
+  
+  console.log(customers.foo());
+  console.log(admin.foo());

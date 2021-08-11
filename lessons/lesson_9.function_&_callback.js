@@ -59,9 +59,7 @@ function _ask(question, yes, no) {
   
   let age = prompt("Сколько Вам лет?", 18);
   
-  let welcome = (age < 18) ?
-    () => alert('Привет') :
-    () => alert("Здравствуйте!");
+  let welcome = (age < 18) ? () => alert('Привет') : () => alert("Здравствуйте!");
   
   welcome();
 
@@ -149,3 +147,5 @@ if (n < 1) {
 } else {
   alert( pow(x, n) );
 }
+
+

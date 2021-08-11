@@ -1,9 +1,3 @@
-function seyHello() {
-    console.log('Hello');
-}
-
-seyHello();
-
 const arr = [3, 5, 7, 65, 26, 5, 83];
 
 arr.sort(compareNum);
