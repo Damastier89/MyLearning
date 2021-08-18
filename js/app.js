@@ -74,4 +74,31 @@ personalMovieDB.writeYourGenres();
 
 console.log(personalMovieDB);
 
+//////////////////////////////////////////////////////////////////////
+/* let i = 2;
+while (i > 0) {
+    const a = prompt('One of the most recently viewed movies?', ""),
+        b = +prompt('Rate the movies?', "");
 
+    if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+        personalMovieDB.movies[a] = b;
+        console.log('done');
+        i--;
+    } else {
+        console.log('error');
+    }
+
+} */
+////////////////////////////////////////////////////////////////////
+
+const btn = document.querySelector('.btn');
+
+function changeColor() {
+    const block = document.querySelectorAll('.color');
+    block.forEach(item => {
+        item.classList.toggle('red');
+        /* item.classList.add('red'); */
+    });
+}
+
+btn.addEventListener('click', changeColor);

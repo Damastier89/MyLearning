@@ -88,17 +88,94 @@ const user = {
   }
   user.sayHello();
   
-  // Значение this вычисляется во время выполнения кода и зависит от контекста.
-  
-  let customers = {name: 'Sergei'};
-  let admin = {name: 'Kate'};
-  
-  function sayHi() {
-    console.log(`Hello`, this.name);
+// Значение this вычисляется во время выполнения кода и зависит от контекста.
+
+const user = {
+  name: 'Sergei',
+  age: 32,
+  sayHello() {
+    console.log(`Hello `, this.name, user.name);
+  },
+}
+user.sayHello();
+
+let customers = {name: 'Sergei'};
+let admin = {name: 'Kate'};
+
+function sayHi() {
+  console.log(`Hello`, this.name);
+}
+
+customers.foo = sayHi;
+admin.foo = sayHi;
+
+console.log(customers.foo());
+console.log(admin.foo());
+
+const user = {
+  name: 'Max',
+  age: 30,
+  hello() {
+    console.log(`hello `, this.name);
   }
-  
-  customers.foo = sayHi;
-  admin.foo = sayHi;
-  
-  console.log(customers.foo());
-  console.log(admin.foo());
+}
+
+user.hello();
+
+const costomer = Object.create(user);
+costomer.name = 'Kate';
+costomer.age = 25;
+costomer.hello();
+
+// Привязывает контекст обьекта user
+const newUser = { name: "Sergei"};
+newUser.hello = user.hello.bind(user);
+
+console.log(newUser.hello());
+
+const calculator = {
+  read() {
+    this.a = +prompt('Введите значение первого аргумента', '');
+    this.b = +prompt('Введите значение второго аргумента', '');
+  },
+  sum() {
+    return this.a + this.b;
+  },
+  mult() {
+    return this.a * this.b;
+  },
+};
+
+calculator.read(); 
+console.log(calculator.sum());
+console.log(calculator.mult());
+
+const math = {};
+math.sum = calculator.sum();
+math.mult = calculator.mult();
+console.log(`math`, math);
+
+const newMath = Object.create(calculator);
+newMath.read();
+newMath.sum = newMath.sum();
+newMath.mult = newMath.mult();
+console.log(`newMath`, newMath);
+
+// Для последовательных вызовов нужен return
+const ladder = {
+  step: 0,
+  up() {
+    this.step++;
+    return this;
+  },
+  down() {
+    this.step--;
+    return this;
+  },
+  showStep: function() {
+    console.log(`Steps -`, this.step);
+    return this;
+  }
+}
+
+let count = ladder.up().up().up().up().down().showStep()
