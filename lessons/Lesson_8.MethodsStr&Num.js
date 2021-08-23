@@ -1,21 +1,32 @@
 "use strict";
-const str = 'test';
-const arr = [1, 2, 3, 4, 5];
-/* console.log(str[2]);
-console.log(arr.length); */
+
+const str = `Hello World`;
+str[0] // Получить первый символ
 console.log(str);
 console.log(str.toUpperCase());
 
-const fruit = 'Some fruit';
-console.log(fruit.indexOf('fruit'));
+for (let char of str) {
+  let upperChar = char.toUpperCase()
+  console.log(upperChar);
+} // перебрать строку
 
-const logg = 'Hello World';
-console.log(logg.slice(6, 11));
-console.log(logg.substring(6, 11));
-console.log(logg.substr(6, 5));
-const string = 'JavaScript is the best lenguage in the world. Let`s learn JavaScript together!';
-console.log(string.replace('JavaScript', 'java'));
-console.log(string.replaceAll('JavaScript', 'java'));
+// Строки не изменяемы но 
+// можно создать новую строку и записать её в ту же самую переменную вместо старой
+let strn = `Hi`;
+strn = 'h' + strn[1]; // 'hi'
+
+// Поиск подстроки
+str.indexOf('hello'); // 0 // если нашел вернет 0, если нет -1.
+str.includes('Hello'); // true
+str.includes('hi'); // false
+
+// Получение подстроки
+str.slice(0, 6) // 'Hello' Возвращает часть строки от start до (не включая) end.
+str.substr(0, 8)// 'Hello W' Этот метод позволяет указать длину вместо конечной позиции
+
+const strings = 'JavaScript is the best lenguage in the world. Let`s learn JavaScript together!';
+console.log(strings.replace('JavaScript', 'java'));
+console.log(strings.replaceAll('JavaScript', 'java'));
 
 const num = 12.2;
 console.log(Math.round(num));
@@ -23,6 +34,44 @@ console.log(Math.round(num));
 const test = '12.2px';
 console.log(parseInt(test));
 console.log(parseFloat(test));
+
+//////////////////////////////////////////////////
+
+function upFirstChar(str) {
+  if(!str) { return str };
+  let upStr = str[0].toUpperCase() + str.slice(1);
+  return upStr;
+}
+const userName = 'sergei';
+upFirstChar(userName); // 'Sergei'
+
+function checkSpam(str) {
+  let spam = str.toLowerCase();
+  if (spam.includes('viagra') || spam.includes('xxx')) {
+    spam = true;
+  } else {
+    spam = false;
+  }
+  return spam;
+}
+
+function truncate(str, maxlength) {
+  let result;
+  if(str.length > maxlength) {
+    result = str.slice(0, maxlength) + '...';
+  }
+  return result;
+}
+truncate('Вот, что мне хотелось бы сказать на эту тему:', 21)// Вот, что мне хотелось...
+
+function extractCurrencyValue(str) {
+  let result = str.slice(1);
+  let resNum = parseInt(result);
+  return resNum;
+}
+
+let sale = "$320"
+extractCurrencyValue(sale); // 320
 
 //////////////////// Number ////////////////////
 

@@ -268,7 +268,7 @@ class Person {
     birthYear = 1989;
 
     // private method #
-    get# age() {
+    get#age() {
         return this.#getYear() - this.birthYear;
     }
 
@@ -276,7 +276,7 @@ class Person {
         console.log(this.#age)
     }
 
-    # getYear() {
+    #getYear() {
         return new Date().getFullYear();
     }
 }
