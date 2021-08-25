@@ -221,15 +221,16 @@
 ////////////////////////////////////////////////////////////
 
 function camelize(str) {
-  let stapOne = str.split("-");
-  let stapTwo = stapOne.map((word, index) => { 
+  let stepOne = str.split("-");
+  let stepTwo = stepOne.map((word, index) => { 
     return index == 0 ? word : word[0].toUpperCase() + word.slice(1)
   });
-  let result = stapTwo.join("");
+  let result = stepTwo.join("");
   return result;
 }
 const result = camelize("list-style-imag") // listStyleImag
 
+///////////////
 function filterRange(arr, a, b,) {
   let copyArr = arr.filter(item => { return (a <= item && item <= b) });
   return copyArr;
@@ -238,6 +239,7 @@ function filterRange(arr, a, b,) {
 const arr16 = [5, 3, 8, 1];
 const filtered = filterRange(arr16, 1, 4,); // 3,1 (значения в диапазоне)
 
+///////////////
 function filterRangeInPlace(arr, a, b,) {
   for (let i = 0; i < arr.length; i++) {
     let value = arr[i];
@@ -250,3 +252,123 @@ function filterRangeInPlace(arr, a, b,) {
 
 let arr17 = [5, 3, 8, 1]; // [3, 1] удалены числа вне диапазона 1..4
 filterRangeInPlace(arr17, 1, 4,);
+
+///////////////
+const arr18 = [5, 1, 35, 15, -10, 27, 3];
+arr18.sort((a, b) => { return a - b }).reverse(); // [35, 27, 15, 5, 3, 1, -10]
+
+///////////////
+const arr19 = ["HTML", "JavaScript", "TypeScript", "CSS", "Angular",];
+function copySorted(arr) {
+  let result = arr.slice().sort();
+  return result;
+}
+
+const result = copySorted(arr19); // ["Angular", "CSS", "HTML", "JavaScript", "TypeScript"]
+
+//////////////
+function Calculator() {
+  this.methods = {
+    "-": (a, b) => a - b,
+    "+": (a, b) => a + b
+  };
+
+  this.calculate = function(str) {
+
+    let split = str.split(' '),
+      a = +split[0],
+      operand = split[1],
+      b = +split[2]
+
+    if (!this.methods[operand] || isNaN(a) || isNaN(b)) {
+      return NaN;
+    }
+
+    return this.methods[operand](a, b);
+  }
+
+  this.addMethod = function(name, func) {
+    this.methods[name] = func;
+  };
+}
+
+const calc = new Calculator();
+calc.addMethod("*", (a, b) => a * b);
+
+const plus = calc.calculate("2 + 2"); // 4
+const multiplication = calc.calculate("3 * 3"); // 9
+
+/////////////
+const _sergei = { name: "Sergei", age: 25 };
+const _kate = { name: "Kate", age: 30 };
+const _maximus = { name: "Maximus", age: 28 };
+const _max = { name: "Max", age: 21 };
+const _elena = { name: "Elena", age: 33 };
+
+const users1 = [ _sergei, _kate, _maximus, _max, _elena,];
+
+const names = users1.map(obj => obj.name); // ["Sergei", "Kate", "Maximus", "Max", "Elena"]
+
+////////////
+const sergei = { name: "Sergei", surname: "Lantsev", id: 1 };
+const kate = { name: "Kate", surname: "Lantseva", id: 2 };
+const maximus = { name: "Maximus", surname: "Great", id: 3 };
+
+const users2 = [ sergei, kate, maximus ];
+
+const usersMapped = users2.map(user => ({
+  fullname: `${user.name} ${user.surname}`,
+  id: user.id, 
+})); // {fullname: "Sergei Lantsev", id: 1}, {fullname: "Kate Lantseva", id: 2}.....
+
+///////////
+const users3 = [ _sergei, _kate, _maximus, _max, _elena,];
+
+function sortByAge(arr) {
+  let result = arr.sort((a, b,) => a.age > b.age ? 1 : -1);
+  return result;
+}
+
+const sortUser = sortByAge(users3); // {name: "Sergei", age: 25}, {name: "Maximus", age: 28}.....
+
+//////////
+const users4 = [ _sergei, _kate, _maximus, _max, _elena,];
+
+function getAverangeAge(users) {
+  let result = users.reduce((acc, user) => acc + user.age, 0) / users.length;
+  return result;
+}
+
+const averangeAge = getAverangeAge(users4); // age: 27.4
+
+//////////
+const arr20 = ["HTML", "Angular", "JavaScript", "TypeScript", "HTML", "CSS", "Angular",];
+
+function unique(arr) {
+  let result = [];
+
+  for (let str of arr) {
+    if (!result.includes(str)) {
+      result.push(str);
+    }
+  }
+  return result.sort();
+}
+
+const uniqueValue = unique(arr20); // ["Angular", "CSS", "HTML", "JavaScript", "TypeScript"]
+
+
+/////////
+// Array.from(obj[, mapFn, thisArg])
+// Array.from, принимает итерируемый объект или псевдомассив и делает из него «настоящий» Array.
+
+const noArr = {
+  0: "Hello",
+  1: "World",
+  length: 2,
+}
+
+const realArr = Array.from(noArr); // ["Hello", "World"]
+
+const arr21 = [5, 1, 35, 15, 27, 3];
+const newArr21 = Array.from(arr21, num => num * num); // [25, 1, 1225, 225, 729, 9]
