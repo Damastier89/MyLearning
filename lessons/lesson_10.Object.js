@@ -130,6 +130,16 @@ function multiplyNumeric(obj) {
 // Если принимающий объект (user) уже имеет свойство с таким именем, 
 // оно будет перезаписано:
 
+function copyObj(mainObj) {
+	let objCopy = {};
+
+	let key;
+	for (key in mainObj) {
+		objCopy[key] = mainObj[key]; // пройдется по переданному обьекту и передаст скопированные свойства в новый обьект
+	}
+	return objCopy;
+}
+
 let user = { name: 'Sergei'},
     surname = { surname:'Lantsev'},
     isMarried = { isMarried: true };
