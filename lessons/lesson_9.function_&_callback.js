@@ -148,4 +148,162 @@ if (n < 1) {
   alert( pow(x, n) );
 }
 
+///////////////////////// Объект функции, NFE //////////////////////////
+// В JavaScript функции – это объекты.
 
+// Можно представить функцию как «объект, который может делать какое-то действие». 
+// Функции можно не только вызывать, 
+// но и использовать их как обычные объекты: добавлять/удалять свойства, передавать их по ссылке и т.д.
+
+// Имя функции доступно как свойство «name»:
+function helloWorld() {
+  console.log("hi");
+}
+
+helloWorld.name; // helloWorld
+
+// Также имена имеют и методы объекта:
+const userObj = {
+
+  sayHello() {},
+
+  sayHi() {},
+}
+
+userObj.sayHello.name; // sayHello
+userObj.sayHi.name; // sayHi
+
+// Свойство «length»
+// Ещё одно встроенное свойство «length» содержит количество параметров функции в её объявлении.
+
+function foo1(a) {};
+function foo2(a, b) {};
+function foo3(a, b, ...rest) {};
+
+foo1.length; // 1
+foo2.length; // 2
+foo3.length; // 2
+
+function ask(question, ...handlers) {
+  let isYes = confirm(question);
+
+  for (let handler of handlers) {
+    if (handler.length == 0) {
+      if (isYes) handler();
+    } else {
+      handler(isYes);
+    }
+  }
+}
+// для положительных ответов вызываются оба типа обработчиков
+// для отрицательных - только второго типа
+
+// ask("Question?", () => console.log("You say, Yes"), result => console.log(result));
+
+// Пользовательские свойства
+// Можно добавить свои собственные свойства.
+function sayHelloWorld() {
+  // console.log(`Hello World`);
+  sayHelloWorld.counter++;
+}
+sayHelloWorld.counter = 0;
+
+sayHelloWorld();
+sayHelloWorld();
+sayHelloWorld();
+
+// console.log(`sayHelloWorld , вызвана ${sayHelloWorld.counter} раз`); // 3
+
+// функцию-счётчик c замыкание
+function makeCounter() {
+
+  function counter() {
+    return counter.count++;
+  }
+  // Свойство count теперь хранится прямо в функции, а не в её внешнем лексическом окружении
+  counter.count = 0;
+
+  return counter;
+}
+
+let counter = makeCounter();
+counter(); // 0
+counter(); // 1
+counter(); // 2
+
+// Функции – это объекты.
+// Их свойства:
+// name – имя функции. Обычно берётся из объявления функции, но если там нет – JavaScript пытается понять его из контекста.
+// length – количество аргументов в объявлении функции. Троеточие («остаточные параметры») не считается.
+
+////////////////////////////////////////////////
+function elseMakeCounter() {
+  let count = 0;
+
+  function counter() {
+    return count++;
+  }
+
+  counter.set = value => count = value;
+
+  counter.decrease = () => count--;
+
+  return counter;
+}
+
+///////
+function sum(a) {
+
+  let currentSum = a;
+
+  function f(b) {
+    currentSum += b;
+    return f;
+  }
+
+  f.toString = function() {
+    return currentSum;
+  };
+
+  return f;
+}
+
+// alert(sum(1)(2)(3))
+
+
+/////////////////////////// Синтаксис "new Function" /////////////////////////
+
+// Функция создаётся с заданными аргументами arg1...argN и телом functionBody.
+// let func = new Function([arg1, arg2, ...argN], functionBody);
+let sum = new Function('a', 'b', 'return a + b');
+sum(1, 2); // 3
+
+// new Function позволяет превратить любую строку в функцию
+
+let str;// код, полученный с сервера динамически ...
+
+let foo4 = new Function(str);
+foo4();
+
+// Замыкание
+// Обычно функция запоминает, где родилась, в специальном свойстве [[Environment]]. 
+// Это ссылка на лексическое окружение (Lexical Environment), в котором она создана 
+// Но когда функция создаётся с использованием new Function, в её [[Environment]] записывается ссылка не на внешнее лексическое окружение, 
+// в котором она была создана, а на глобальное. 
+// Поэтому такая функция имеет доступ только к глобальным переменным.
+
+function getFunc() {
+  let value = "test";
+
+  let func = new Function(`alert(value)`);
+
+  return func;
+}
+
+getFunc()(); // ошибка: ReferenceError: value is not defined
+
+// Функции, объявленные через new Function, имеют [[Environment]], 
+// ссылающийся на глобальное лексическое окружение, а не на родительское. 
+// Поэтому они не могут использовать внешние локальные переменные. 
+// Переданные явно параметры – гораздо лучшее архитектурное решение, 
+// которое не вызывает проблем у минификаторов.
