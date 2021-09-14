@@ -3,6 +3,7 @@
     height: 150px;
     background-color: red;
 }
+
 button {
 		width: 80px;
 		height: 30px;
@@ -76,6 +77,31 @@ button {
 		margin-top: 30px;
 		color: #fff;
 }
-.green{
-	background-color: green;
+.color{
+	color: #fff;
+}
+
+.btn {
+  width: 150px;
+  height: 50px;
+  background-color: green;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn:hover {
+  transform: scale(0.95);
+}
+.overlay {
+  background-color: pink;
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+}
+a {
+  display: block;
+  margin-top: 30px;
 }
