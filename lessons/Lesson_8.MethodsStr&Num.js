@@ -58,7 +58,7 @@ function checkSpam(str) {
 function truncate(str, maxlength) {
   let result;
   if(str.length > maxlength) {
-    result = str.slice(0, maxlength) + '...';
+    result = `${str.slice(0, maxlength)}...`;
   }
   return result;
 }
