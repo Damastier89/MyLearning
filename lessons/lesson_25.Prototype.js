@@ -449,3 +449,122 @@ function foo(a, b) {
 }
 
 foo.defers(3000)(1, 2); // выведет 3 через 1 секунду.
+
+
+/////////////// Методы прототипов, объекты без свойства __proto__ ///////////////
+
+// Свойство __proto__ считается устаревшим, и по стандарту оно должно поддерживаться только браузерами.
+
+// Современные методы это:
+
+// Object.create(proto, [descriptors]) – создаёт пустой объект со свойством [[Prototype]], 
+// указанным как proto, и необязательными дескрипторами свойств descriptors.
+// Object.getPrototypeOf(obj) – возвращает свойство [[Prototype]] объекта obj.
+// Object.setPrototypeOf(obj, proto) – устанавливает свойство [[Prototype]] объекта obj как proto.
+
+// Эти методы нужно использовать вместо __proto__.
+
+const animal = {
+  eats: true,
+};
+
+const bird = Object.create(animal); // создаём новый объект с прототипом animal
+bird.eats; // true
+
+// получаем прототип объекта bird.
+Object.getPrototypeOf(bird) === animal; // true
+
+// заменяем прототип объекта bird на {}
+Object.setPrototypeOf(bird, {});
+Object.getPrototypeOf(bird) === animal; // false
+
+// У Object.create есть необязательный второй аргумент: дескрипторы свойств. 
+// Мы можем добавить дополнительное свойство новому объекту таким образом:
+
+const human = {
+  eats: true,
+};
+
+const child = Object.create(human, {
+  jumps: {
+    value: true,
+  }
+});
+
+child.jumps; // true
+
+// Можно использовать Object.create для «продвинутого» клонирования объекта, 
+// более мощного, чем копирование свойств в цикле for..in:
+// let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+
+const user = {
+  name: "Kate",
+  age: 38,
+  isAdmin: false,
+}
+
+const customer = Object.create(
+  Object.getPrototypeOf(user), Object.getOwnPropertyDescriptors(user)
+); // Такой вызов создаёт точную копию объекта user, включая все свойства: 
+// перечисляемые и неперечисляемые, геттеры/сеттеры для свойств – и всё это с правильным свойством [[Prototype]].
+
+customer; // {name: 'Kate', age: 38, isAdmin: false}
+customer.isAdmin = true;
+user; // {name: 'Kate', age: 38, isAdmin: false}
+customer; // {name: 'Kate', age: 38, isAdmin: true}
+
+// На данный момент это пофиксили в браузерах. Добавить __proto__ сейчас нельзя.
+// const db = {}
+// const question = prompt(`How many?`, "__proto__");
+
+// db.question = "some value";
+// db.question = question; // "__proto__"
+
+// console.log(db);
+
+//////////////////////////////////////////
+
+const dictionary = Object.create(null, {
+  toString: { // определяем свойство toString
+    value() { // значение - это функция
+      return Object.keys(this).join();
+    }
+  }
+});
+console.log(dictionary);
+
+// dictionary.toString = function() {
+//   console.log(`Method - toStrong`);
+// }
+// добавляем немного данных
+dictionary.apply = "Apply";
+dictionary.__proto__ = "test" // здесь __proto__ - это обычный ключ
+
+for(let key in dictionary) {
+  console.log(key); // apply, __proto__
+}
+
+// Когда мы создаём свойство с помощью дескриптора, все флаги по умолчанию имеют значение false. 
+// Таким образом, в коде выше dictionary.toString – неперечисляемое свойство.
+
+///////
+function CreateUser(name) {
+  this.name = name;
+}
+
+CreateUser.prototype.sayHello = function() {
+  console.log(`Hello ${this.name}`);
+}
+
+const userOne = new CreateUser("Kate"); 
+userOne.sayHello(); // Hello Kate
+
+const userTwo = new CreateUser("Sergei");
+userTwo.sayHello(); // Hello Sergei
+
+CreateUser.prototype.sayHello(); // Hello undefined
+Object.getPrototypeOf(userOne).sayHello(); // Hello undefined
+userOne.__proto__.sayHello(); // Hello undefined
+
+// В первых вызовах this == CreateUser, во всех остальных this равен CreateUser.prototype, так как это объект перед точкой.
+// Так что только первый вызов выведет CreateUser, а остальные – undefined.
