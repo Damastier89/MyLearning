@@ -1,20 +1,18 @@
 const btn = document.querySelector('.btn');
-let timerIdOne;
-let i = 0;
 
 function myAnimation() {
     const elem = document.querySelector('.box');
-    let pos = 0;
+    let positions = 0;
 
     const id = setInterval(frame, 20);
 
     function frame() {
-        if (pos == 300) {
+        if (positions == 294) {
             clearInterval(id);
         } else {
-            pos++;
-            elem.style.top = pos + 'px';
-            elem.style.left = pos + 'px';
+            positions++;
+            elem.style.top = positions + 'px';
+            elem.style.left = positions + 'px';
         }
     }
 }
@@ -82,6 +80,11 @@ function sayHello() {
   // Планирование с нулевой задержкой setTimeout(func,0) или, что то же самое, setTimeout(func) используется для вызовов, которые должны быть исполнены как можно скорее, после завершения исполнения текущего кода.
   // Браузер ограничивает 4-мя мс минимальную задержку между пятью и более вложенными вызовами setTimeout, а также для setInterval, начиная с 5-го вызова.
   
+  // Рекурсивный вызов
+  let id = setTimeout(function logger() {
+    console.log(`Hello World`);
+    id = setTimeout(logger, 1000);
+  }, 1000);
   ///////////////////////////////////////////
   function printNumbers(from, to) {
   
