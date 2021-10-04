@@ -668,3 +668,67 @@ coffeeMashine.power; // 650
 const mashine = new CoffeeMashine(500); // CoffeeMashine {_power: 500, #checkWaret: ƒ, #waterAmount: 100, #waterLimit: 200}
 mashine.waterAmount = 100;
 // mashine.#waterAmount; Private field '#waterAmount' must be declared in an enclosing class
+
+
+////////////////// Расширение встроенных классов ////////////////////
+
+// От встроенных классов, таких как Array, Map и других, тоже можно наследовать.
+
+class PowerArray extends Array {
+  isEmpty() {
+    return this.length === 0;
+  }
+};
+
+let arr = new PowerArray(1, 3, 4, 10, 15);
+arr.isEmpty(); // false
+
+// встроенные методы, такие как filter, map и другие возвращают новые объекты унаследованного класса PowerArray. 
+// Их внутренняя реализация такова, что для этого они используют свойство объекта constructor.
+let filteredArr = arr.filter( item => item >= 10);
+filteredArr; // [10, 15]
+filteredArr.isEmpty(); // false
+
+// Встроенные классы – исключение. Они не наследуют статические методы друг друга.
+// Например, и Array, и Date наследуют от Object, так что в их экземплярах доступны методы из Object.prototype. 
+// Но Array.[[Prototype]] не ссылается на Object, поэтому нет методов Array.keys() или Date.keys().
+
+// Оператор instanceof позволяет проверить, к какому классу принадлежит объект, с учётом наследования.
+// Обычно оператор instanceof просматривает для проверки цепочку прототипов. 
+
+arr instanceof Array; // true
+
+///////////////////////////// Примеси ////////////////////////////////
+
+// В JavaScript можно наследовать только от одного объекта. Объект имеет единственный [[Prototype]]. 
+// И класс может расширить только один другой класс.
+
+// Примесь – это класс, методы которого предназначены для использования в других классах, 
+// причём без наследования от примеси.
+// Другими словами, примесь определяет методы, которые реализуют определённое поведение. 
+// Мы не используем примесь саму по себе, а используем её, чтобы добавить функциональность другим классам.
+
+// Примесь
+const sayHiMixin = {
+  sayHi() {
+    console.log(`Hello ${this.name}`);
+  },
+  sayBye() {
+    console.log(`Bay ${this.name}`);
+  }
+};
+
+// использование:
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+// копируем методы
+Object.assign(User.prototype, sayHiMixin);
+
+// Это не наследование, а просто копирование методов. Таким образом, класс User может наследовать от другого класса, 
+// но при этом также включать в себя примеси, «подмешивающие» другие методы, например:
+const kate = new User("Kate");
+kate.sayHi();
