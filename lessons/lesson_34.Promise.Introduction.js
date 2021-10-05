@@ -83,7 +83,6 @@ improvedLoadScript(`https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodas
 
 
 // Адская пирамида вызовов
-
 improvedLoadScript('1.js', function(error, script) {
 
   if (error) {

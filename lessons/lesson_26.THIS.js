@@ -1,10 +1,10 @@
 "use strict";
-// 1) обычная функция: this -> window bat 'use strict' this -> undefined
+// 1) обычная функция: this -> window. Bat 'use strict' this -> undefined
 function showThis(a, b) {
-    console.log(this);
+    console.log(this); // undefined
 
     function sum() {
-        console.log(this);
+        console.log(this); // undefined
         return a + b;
     }
     console.log(sum());
@@ -17,8 +17,9 @@ const obj = {
     a: 20,
     b: 25,
     sum: function () {
+      console.log(this); // this -> {a: 20, b: 25}
         function shout() {
-            console.log(this);
+            console.log(this); // undefined так как это просто функция, а не метод объекта.
         }
         shout();
     }
@@ -27,7 +28,6 @@ const obj = {
 obj.sum();
 
 // 3) this в конструкторах и классах ссылается на только что созданный новый объект.
-
 function User(name, age) {
     this.name = name;
     this.age = age;
@@ -39,45 +39,48 @@ function User(name, age) {
 
 let sergei = new User('Sergei', 31);
 
+// 4) Ручное добавление this. Привязка контекста
 function sayName(surname) {
     console.log(this);
     console.log(this.name + surname);
 }
 
 const user = {
-    name: 'Sergei',
+    name: 'Sergei', // контекст
 };
 
-sayName.call(user, ' Lantsev');
-sayName.apply(user, [' Lantsev']);
+// Привязываем объект к this в функции
+sayName.call(user, ' Lantsev'); // передаем сюда контекст вызова который хотим передать в функцию
+sayName.apply(user, [' Lantsev']); // передаем сюда контекст вызова который хотим передать в функцию
 
 function count(num) {
     return this * num;
 }
-
+// bind создает новую функцию и привязывает к ней контекст
 const double = count.bind(2); // this это 2
+
 // теперь double это функция
-console.log(double(3));
-console.log(double(33));
-console.log(double(333));
+console.log(double(3)); // 6
+console.log(double(33)); // 66
+console.log(double(333)); // 666
 
 const btn = document.querySelector('.add');
 
 btn.addEventListener('click', function () {
-    console.log(this);
+    console.log(this); // элемент на котором произошло событие => event.target
 });
 
 const objeckt = {
     num: 5,
     sayNumber: function () {
         const say = () => {
-            console.log(this);
+            console.log(this); // стрелочная функция берет контекст у родителя
         };
         say();
     }
 };
 
-objeckt.sayNumber();
+objeckt.sayNumber(); // this => {num: 5, sayNumber() {}}
 
 const user = {
     name: 'Sergei',
