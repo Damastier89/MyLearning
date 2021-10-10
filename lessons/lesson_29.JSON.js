@@ -102,6 +102,24 @@ let meetupStr = JSON.parse(str, function(key, value) {
 // Если объект имеет метод toJSON, то он вызывается через JSON.stringify.
 
 
+// Глубокое копирование объектов
+
+const customer = {
+  name: "Kate",
+  age: 38,
+  isAdmin: false,
+  country: {
+    city: "Kaluga",
+    street:"Azarovo"
+  }
+}
+
+const cloneCustomer = JSON.parse(JSON.stringify(customer));
+cloneCustomer.name = "Sergei"
+cloneCustomer.age = 32;
+console.log(customer);
+console.log(cloneCustomer);
+
 ////////////////////////////////////////////////////////////
 let userJS = {
   name: "Василий Иванович",
