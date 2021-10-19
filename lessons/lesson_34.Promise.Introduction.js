@@ -195,5 +195,70 @@ function step3(error, script) {
 //   </script>
 
 
-// </body>
-// </html>
+// // </body>
+// // </html>
+
+// console.log(`Loading data...`);
+
+// setTimeout(() => {
+//   console.log(`Update data...`);
+
+//   const product = {
+//     name: 'Samsung',
+//     type: 'TV',
+//     id: 1,
+//   };
+
+//   setTimeout(() => {
+//     product.price = 200;
+//     console.log(product);
+//   }, 2000);
+
+// }, 3000);
+
+///////
+console.log(`Loading data...`);
+
+const product = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log(`Datas are preparation...`); 
+    const productName = {
+      name: 'Samsung',
+      type: 'TV',
+      id: 1,
+    };
+    if (productName) {
+      resolve(productName);
+    } else {
+      reject(new Error(console.log(`Whooops o_O`)))
+    }
+    
+  }, 2000);
+}).then(
+    productName => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(`Datas are recevid and processed...`);
+          productName.status = 'order';
+          console.log(productName);
+          resolve(productName);
+        }, 2000);
+      })
+    }
+  ).then(
+    productName => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(`Datas are recevid and processed...`);
+          productName.isVip = true;
+          resolve(productName);
+        }, 2000)
+      })
+    }
+  ).then(
+    productName => {
+      console.log(productName);
+    }
+  );
+
+

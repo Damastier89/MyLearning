@@ -142,3 +142,83 @@ fooo().catch(err => console.log(err)); // TypeError: failed to fetch // (*)
 
 
 /////////////////////////////////////////////////////////////////
+async function loadJson(url) {
+  try {
+    const response = await fetch(url);
+
+    if (response.status == 200) {
+      const json = await response.json();
+      return json;
+    }
+    console.log(json);
+    
+  } catch(err) {
+      console.log(err);
+  }
+};
+
+// loadJson(no-such-user.json);
+
+///////
+
+class HttpError extends Error {
+  constructor(response) {
+    super(`${response.status} for ${response.url}`);
+    this.name = HttpError;
+    this.response = response;
+  }
+};
+
+async function loadJson(url) {
+    const response = await fetch(url);
+
+    if (response.status == 200) {
+      const json = await response.json();
+      return json;
+    } else {
+      throw new HttpError(response);
+    }
+};
+
+// Запрашивать логин, пока github не вернёт существующего пользователя.
+async function demoGitHubUser() {
+  // Через цикл
+  let user;
+  while(true) {
+    const name = prompt(`Введите логин,` ``);
+
+    try {
+      user = await loadJson(`https://api.github.com/users/${name}`);
+      break; // ошибок не было, выходим из цикла
+    } catch(err) {
+      if (err instanceof HttpError && err.response.status == 404) {
+        // после alert начнётся новая итерация цикла
+        console.log(`Такого пользователя не существует, пожалуйста, повторите ввод.`);
+      } else {
+        // неизвестная ошибка, пробрасываем её
+        throw err;
+      }
+    }
+  };
+
+  console.log(`Полное имя ${user.name}`);
+  return user;
+
+  // Через рекурсию
+  // const name = prompt(Введите голин, ``);
+  // return await loadJson(https://api.github.com/users/${name})
+  //   .then(user => {
+  //     console.log(Полное имя ${user.name});
+  //     return user;
+  //   })
+  //   .catch(err => {
+  //     if (err instanceof HttpError && err.response.status == 404) {
+  //       console.log(Такого пользователя не существует, пожалуйста, повторите ввод.);
+  //       return demoGitHubUser();
+  //     } else {
+  //       throw err;
+  //     }
+  //   });
+}
+
+demoGitHubUser();
