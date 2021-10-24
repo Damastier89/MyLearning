@@ -210,6 +210,11 @@ const amount = people.reduce((total, person) => {
     return total += person.budget;
 }, 0);
 
+const fruit = ['apple', 'banana', 'plum'];
+const fruinStr = fruit.reduce((str, fruits) => {
+    return `${str}, ${fruits}`; // apple, banana, plum
+})
+
 //console.log(amount);
 
 //Find 

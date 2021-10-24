@@ -2,6 +2,9 @@
 // Более сложный пример: fetch
 
 // Во фронтенд-разработке промисы часто используются, чтобы делать запросы по сети
+// Fetch API предоставляет интерфейс JavaScript для работы с запросами и ответами HTTP. 
+// Он также предоставляет глобальный метод fetch() (en-US), 
+// который позволяет легко и логично получать ресурсы по сети асинхронно
 
 // const promise = fetch(url);
 
@@ -100,3 +103,21 @@ loadJson(`data/users/user.json`)
   .then(showAvatar)
   .then(githubUser => console.log(`Показ аватара ${githubUser.name} завершён`))
   .catch(error => console.log(error));
+
+///////
+
+const user = {
+  name: 'Kate',
+  age: 38,
+  isAdmin: false,
+}
+
+fetch(`https://jsonplaceholder.typicode.com/posts`, {
+  method: 'POST',
+  body: JSON.stringify(user),
+  headers: {
+    'Content-type' : 'application/json',
+  }
+})
+  .then(usersData => usersData.json())
+  .then(users => console.log(users));

@@ -230,3 +230,17 @@ function count(obj) {
 }
 
 const lengthObj = count(salaries); // 3
+
+///////
+const httpData = {
+  ivan : 'persone',
+  ann: 'persone',
+  dog: 'animal',
+  cat: 'animal',
+}
+
+const newHttpData = Object.entries(httpData) // Превращает обьект в массив(в матрицу массивов);
+.filter(item => item[1] === 'persone')
+.map(item => item[0]); 
+
+console.log(newHttpData);

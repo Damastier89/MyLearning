@@ -188,6 +188,8 @@ user.name; // Kate
 
 const users = arr10.filter(users => users.id >= 4);
 users // [{id: 4, name: "Elena"}, {id: 5, name: "Den"},]
+const shortName = arr10.filter(user => user.name.length < 4); // [ { id: 3, name: 'Max' }, { id: 5, name: 'Den' } ]
+console.log(shortName);
 
 /////// Преобразование массива
 // map - вызывает функцию для каждого элемента массива и возвращает массив результатов выполнения этой функции.
