@@ -143,7 +143,7 @@ button {
 } */
 
 /* lesson 22 */
-.box {
+/* .box {
   position: absolute;
   width: 100px;
   height: 100px;
@@ -162,4 +162,23 @@ button {
   height: 40px;
   background-color: yellow;
   border: none;
+} */
+
+/* lesson 36 */
+* {
+  box-sizing: border-box;
+}
+.wrapper {
+	width: 400px;
+	margin: 40px auto 0 auto;
+	border: 1px solid rgba(0,0,0, .2);
+	padding: 20px;
+	}
+
+button {
+  margin-top: 20px;
+}
+
+[type=checkbox] {
+  margin-top: 20px;
 }
