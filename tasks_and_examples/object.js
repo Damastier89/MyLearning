@@ -23,7 +23,7 @@ PresentationElement.prototype.editParams = function(presentationProperty, presen
   if (presentationProperty) {
       Object.entries(presentationProperty).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
-          this[_key] = value;
+          this[_${key}] = value;
       }
     })
   };
