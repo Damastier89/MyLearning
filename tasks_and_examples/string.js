@@ -17,3 +17,16 @@ function upFirstLetter(str) {
 }
 
 console.log(upFirstLetter('kate')); // Kate
+
+// Проверяет наличие пробелов строке(Можно использовать для бисейбла кнопок и т.п.)
+function isStringByOnlySpaces(str) {
+    let res = true;
+    str.split('').forEach(symbol => symbol === ' '  ?  null  :  res = false);
+    return res;
+  }
+
+function isStringByOnlySpaces(str) {
+  let res = true;
+  str.replace(/^\s+/i, '').replace(/\s+$/i, '') === '' ? null : res = false;
+  return res;
+}  
