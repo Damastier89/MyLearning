@@ -81,7 +81,6 @@ function User(name) {
   this.sayHello = function() {
     console.log(`Hello ${name}`);
   }
-
 }
 
 const userKate = new User("Kate");
@@ -105,13 +104,30 @@ counter2(); // 0
 counter2(); // 1
 counter2(); // 2
 
+// Cоздаём и возвращаем функцию «счётчик» v2:
+function createCounter() {
+  let counter = 0;
+
+  const anyFunction = function() {
+    counter = counter + 1;
+    return counter;
+  }
+
+  return anyFunction;
+}
+
+const increment = createCounter();
+const c1 = increment();
+const c2 = increment();
+const c3 = increment();
+console.log(c1,c2,c3) // 1, 2, 3
 
 // Блоки кода и циклы, IIFE
 // Лексическое окружение существует для любых блоков кода {...}.
 // Лексическое окружение создаётся при выполнении блока кода и содержит локальные переменные для этого блока.
 
 if (true) {
-  let name = "Kate"; // еременная name существует только в блоке if
+  let name = "Kate"; // переменная name существует только в блоке if
 }
 
 // Когда выполнение попадает в блок if, для этого блока создаётся новое лексическое окружение.
@@ -151,8 +167,8 @@ function getUrl(url) {
 }
 let google = getUrl('google');
 let faceBook = getUrl('facebook');
-console.log(google());
-console.log(faceBook());
+console.log(google()); // https://google.com
+console.log(faceBook()); // https://facebook.com
 
 ////////////////////////////////////////////////
 function Stepper() {

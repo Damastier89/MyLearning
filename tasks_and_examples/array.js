@@ -89,6 +89,41 @@ function difference(first, second) {
 
 console.log(difference(first, second)); // [1, 2, 3, 6, 7, 8]
 
+// Для нахождения отсутствующего числа (работает по индексу массива)
+const numbers1 = [0, 3, 2,];
+const numbers2 = [2, 0, 5, 1, 4]
 
+function checkMissingValues(array) {
+  let stepOne = array.sort((a, b) => a - b);
+  let stepTwo = stepOne.find((value, index) => { value != index }) - 1;
+  return stepTwo;
+}
 
+checkMissingValues(numbers1);
+checkMissingValues(numbers2);
 
+// function checkMissingValues(array) {
+//   return array.sort((a, b) => a - b).find((value, index) => value != index) - 1;
+// }
+
+// checkMissingValues(numbers1);
+// console.log(checkMissingValues(numbers2));
+
+// Найти все числа, отсутствующие в массиве
+const numbers3 = [4, 3, 2, 7, 8, 2, 3, 1];
+const numbers4 = [1, 1];
+
+function checkMissingAllValues(array) {
+  let result = [];
+
+  for (let i = 1; i < array.length + 1; i++) {
+    if (!array.includes(i)) {
+      result.push(i);
+    }
+  }
+
+  return result;
+}
+
+console.log(`checkMissingAllValues :` ,checkMissingAllValues(numbers3));
+console.log(`checkMissingAllValues :` ,checkMissingAllValues(numbers4));
