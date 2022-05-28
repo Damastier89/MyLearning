@@ -127,3 +127,101 @@ function checkMissingAllValues(array) {
 
 console.log(`checkMissingAllValues :` ,checkMissingAllValues(numbers3));
 console.log(`checkMissingAllValues :` ,checkMissingAllValues(numbers4));
+
+// В непустом массиве целых чисел numbers каждый элемент встречается дважды, кроме одного. Найди найти его.
+const numbers = [2, 2, 1];
+const numbers5 = [2, 2, 1, 1, 3];
+
+function singleNumber(array) {
+  let result = 0;
+  for (let i = 0; i < array.length; i++) {
+    result ^= array[i];
+  }
+  
+  return result;
+}
+
+console.log(singleNumber(numbers)); // 1
+console.log(singleNumber(numbers5)); // 3
+
+// Вы поднимаетесь по лестнице. Требуется n шагов, чтобы добраться до вершины.
+// Каждый раз вы можете подняться на 1 или 2 ступеньки. 
+// Сколькими различными способами вы можете подняться на вершину?
+
+function isManyWays(n) {
+  if (n === 1 || n === 0) return 1;
+
+  let step = 1;
+  let dubleStep = 2;
+
+  for (let i = 3; i <= n; i++) {
+    let therdStep = step + dubleStep;
+    step = dubleStep;
+    dubleStep = therdStep
+  }
+
+  return dubleStep;
+}
+
+console.log(isManyWays(4));
+
+// Учитывая целочисленный массив nums, найдите непрерывный подмассив (содержащий хотя бы одно число), 
+// который имеет наибольшую сумму, и верните его сумму.
+
+const numbers6 = [5, 4, -1, 7, 8];
+const numbers7 = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+
+function maximumSubarray(array) {
+  let maxSum = -Infinity;
+  let currentSum = 0;
+
+  for (let i = 0; i < array.length; i++) {
+    currentSum = Math.max(array[i], currentSum + array[i]);
+    maxSum = Math.max(currentSum, maxSum);
+  }
+
+  return maxSum;
+}
+
+console.log(maximumSubarray(numbers7));
+
+// Создать новый массив
+function createNewArray() {
+  const arr = [3, 5, 8, 16, 20, 23, 50];
+  const result = [];
+  arr.map(item => result.push(item));
+
+  return result;
+}
+console.log(createNewArray());// [3, 5, 8, 16, 20, 23, 50];
+
+// Перебрать массив, числа умножить на два, к строке добавить " - done";
+const data = [5, 10, 'Shopping', 20, 'Homework'];
+function changeArray(data) {
+  for (let i = 0; i < data.length; i++) {
+    if (typeof(data[i]) === 'string') {
+      data[i] = `${data[i]} - done`;
+    }
+
+    if (typeof(data[i]) === 'number') {
+      data[i] *= 2;
+    }
+  }
+
+  return data; 
+}
+console.log(changeArray(data)); // [ 10, 20, 'Shopping - done', 40, 'Homework - done' ]
+
+function revertArray() {
+  const data = [5, 10, 'Shopping', 20, 'Homework'];
+  const result = [];
+
+  for (let i = 0; i < data.length; i++) {
+    result.unshift(data[i]);
+  }
+
+
+  return result;
+}
+
+console.log(revertArray()); // [ 'Homework', 20, 'Shopping', 10, 5 ]
