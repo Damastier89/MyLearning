@@ -18,7 +18,7 @@ function upFirstLetter(str) {
 
 console.log(upFirstLetter('kate')); // Kate
 
-// Проверяет наличие пробелов строке(Можно использовать для бисейбла кнопок и т.п.)
+// Проверяет наличие пробелов строке(Можно использовать для дисейбла кнопок и т.п.)
 function isStringByOnlySpaces(str) {
     let res = true;
     str.split('').forEach(symbol => symbol === ' '  ?  null  :  res = false);
@@ -46,3 +46,16 @@ function camelize(str) {
 }
 const result = camelize("list_style_imag") // listStyleImag
 console.log(result)
+
+const someString = 'This is some strange string';
+
+// Развернуть строку
+function reverse(str) {
+  if (typeof(str) !== 'string') {
+    return `Аргумент : '${str}', не является  строкой!`;
+  }
+  const result = str.split('').reverse().join('');
+  return result;
+}
+
+console.log(reverse(someString));

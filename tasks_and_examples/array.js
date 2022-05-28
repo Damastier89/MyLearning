@@ -212,16 +212,58 @@ function changeArray(data) {
 }
 console.log(changeArray(data)); // [ 10, 20, 'Shopping - done', 40, 'Homework - done' ]
 
-function revertArray() {
-  const data = [5, 10, 'Shopping', 20, 'Homework'];
+// Развернуть массив в обратную сторону.
+const data2 = [5, 10, 'Shopping', 20, 'Homework'];
+function revertArray(data) {
   const result = [];
-
   for (let i = 0; i < data.length; i++) {
     result.unshift(data[i]);
   }
-
-
   return result;
 }
 
-console.log(revertArray()); // [ 'Homework', 20, 'Shopping', 10, 5 ]
+console.log(revertArray(data2)); // [ 'Homework', 20, 'Shopping', 10, 5 ]
+
+// работа с массивами
+const family = ['Peter', 'Ann', 'Alex', 'Linda'];
+const familyVoid = [];
+
+function showFamily(arr) {
+  if (!arr.length) {
+    return `Семья пуста!`;
+  }
+  const result = arr.join(', ');
+  return `Семья состоит из: ${result}.`;
+}
+console.log(showFamily(family));
+console.log(showFamily(familyVoid));
+
+const favoriteCities = ['liSBon', 'ROME', 'miLan', 'Dublin'];
+
+function standardizeStrings(arr) {
+  return result = arr.join(', ').toLowerCase();
+}
+console.log(standardizeStrings(favoriteCities));
+
+// Вернуть доступные валюты и двух банков. 
+// Первый аргумент - вылюты банков. 
+// Второй аргумент - отсутствующая валюта
+const baseCurrencies = ['USD', 'EUR'];
+const additionalCurrencies = ['UAH', 'RUB', 'CNY'];
+
+function availableCurr(arr, missingCurr) {
+  let result = [];
+  if (!arr.length) {
+    return `Нет доступных валют!`;
+  }
+
+  if (arr.includes(missingCurr)) {
+    arr.pop(arr.includes(missingCurr));
+    result = arr;
+    
+  }
+
+  return `Доступные вылюты : \n ${result.join('\n ')}`;
+}
+
+console.log(availableCurr([...additionalCurrencies, ...baseCurrencies], 'CNY'));

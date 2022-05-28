@@ -163,7 +163,7 @@ console.log(isBudgetEnough(shoppingMallData));
 //   [ 'Cris', 'Josh', 'Mark' ],
 //   [ 'Peter', 'Sam', 'Sandra' ],
 //   'Оставшиеся студенты : - '
-// ]
+// ] три массива, а все что не всемтилось в перевести в строку.
 const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam'];
 const studentsMinusOne = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Sam'];
 const studentsPlusOne = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam', 'Somebody'];
