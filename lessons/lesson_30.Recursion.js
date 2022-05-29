@@ -202,3 +202,122 @@ function printListRec(list) {
 }
 
 printListRec(lists); // 1, 2, 3, 4
+
+let students = {
+  js: [
+    {
+      name: 'Kate',
+      progress: 100
+    },
+    {
+      name: 'Sergei',
+      progress: 60
+    }
+  ],
+  typeScript: {
+    basic: [
+      {
+        name: 'Ann',
+        progress: 20
+      },
+      {
+        name: 'Sam',
+        progress: 18
+      }
+    ],
+    pro: [
+      {
+        name: 'Peter',
+        progress: 10
+      }
+    ],
+    semi: {
+      students: [
+        {
+          name: 'Boris',
+          progress: 100
+        }
+      ]
+    }
+  }
+};
+
+function getAllProgressByIteration(data) {
+  let totalProgress = 0;
+  let students = 0;
+
+  for (let course of Object.values(data)) {
+    if (Array.isArray(course)) {
+      students += course.length;
+
+      for (let i of course) {
+        totalProgress += i.progress;
+      }
+
+    } else {
+      for (let subCourse of Object.values(course)) {
+        students += subCourse.length;
+
+        for (let i of subCourse) {
+          totalProgress += i.progress;
+        }
+
+      }
+    }
+
+  }
+
+  console.log(totalProgress, totalProgress);
+  console.log(students, students);
+
+  return totalProgress / students;
+}
+
+console.log(getAllProgressByIteration(students)); // 74
+
+
+function getAllProgressByRecursion(data) {
+  if (Array.isArray(data)) {
+    let total = 0;
+
+    for (let i of data) {
+      total += i.progress;
+    }
+
+    return [total, data.length];
+  } else {
+    let total = [0, 0];
+
+    for(let subData of Object.values(data)) {
+      const subDataArray = getAllProgressByRecursion(subData);
+      total[0] += subDataArray[0];
+      total[1] += subDataArray[1];
+    }
+
+    return total;
+  }
+}
+
+const result = getAllProgressByRecursion(students);
+const allResult = result[0] / result[1];
+
+console.log(allResult); // 74
+
+
+function factorial(n) {
+  if (typeof(n) !== 'number' || !Number.isInteger(n)) {
+      return "Ошибка, проверьте данные";
+  }
+
+  if (n >= 1) {
+      return n * factorial(n - 1);
+  } else {
+      return 1;
+  }
+
+  // Более короткий вариант, который вы можете встретить
+  // Но не учитывает отрицательные значения
+  return n ? n * factorial(n - 1) : 1;
+}
+
+factorial(5)
