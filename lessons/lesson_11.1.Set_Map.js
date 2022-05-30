@@ -29,7 +29,6 @@ visitsCoutMap.set(user, 11);
 visitsCoutMap.get(user); // 11
 
 // Перебор Map()
-
 // map.keys() – возвращает итерируемый объект по ключам,
 // map.values() – возвращает итерируемый объект по значениям,
 // map.entries() – возвращает итерируемый объект по парам вида [ключ, значение], этот вариант используется по умолчанию в for..of.
@@ -61,13 +60,75 @@ recipeMap.forEach((val, key, map) => {
 
 // Можно создать Map из обычного объекта
 // object.fromEntries, делает противоположное, obj из Map
-const obj = {
-  name: "Sergei",
-  age: 32
+// Создать Map из объекта
+const mapFromObject = new Map(Object.entries(person));
+console.log(mapFromObject) // Map(4) {'name' => 'Kate', 'surname' => 'Smith', 'birthday' => '20/03/1999', 'showFullName' => ƒ}
+
+// Создать объект из Map
+const objectFromMap = Object.fromEntries(mapFromObject);
+console.log(objectFromMap); // {name: 'Kate', surname: 'Smith', birthday: '20/03/1999', showFullName: ƒ}
+
+// Примеры
+const budget = [5000, 9000, 17000, 25000];
+const shops = [
+  {rice: 500},
+  {oil: 100},
+  {bread: 30},
+  {solt: 40}
+];
+
+
+function fillMapShops(shops, budget) {
+  const mapShops = new Map([
+    [{paper: 400}, 3500], // так выглядит карта из нутри
+  ]);
+  const iterator = Object.keys(shops).length - 1;
+
+  for(let i = 0; i <= iterator; i++) {
+    mapShops.set(shops[i], budget[i]);
+  }
+
+  return mapShops;
 }
 
-const mapFromObj = new Map(Object.entries(obj));// {"name" => "Sergei"}, {"age" => 32}
+const resultAddPriceToShops = fillMapShops(shops, budget);
+// console.log('resultAddPriceToShops : ', resultAddPriceToShops);
 
+// Перебор Map с помощью функций
+function getKyesToMap(data) {
+  const resultKeysShop = [];
+  for (let shop of data.keys()) {
+    resultKeysShop.push(Object.keys(shop).join());
+  } 
+
+  return resultKeysShop;
+}
+
+// console.log(getKyesToMap(resultAddPriceToShops)); // ['paper', 'rice', 'oil', 'bread', 'solt']
+
+function getValueToMap(data) {
+  const resultValueShop = [];
+  for (let price of data.values()) {
+    resultValueShop.push(price);
+  } 
+
+  return resultValueShop;
+}
+
+// console.log(getValueToMap(resultAddPriceToShops)); // [3500, 5000, 9000, 17000, 25000]
+
+function deconstructMap(data) {
+  let resultPrice = 0;
+  const resultShops = [];
+  for (let [shop, price] of data.entries()) {
+    resultPrice += price;
+    resultShops.push(Object.keys(shop));
+  }
+
+  return `Общий бюджет : ${resultPrice}. Все товары : ${resultShops}`;
+}
+
+console.log(deconstructMap(resultAddPriceToShops));
 
 // Объект Set – это особый вид коллекции: «множество» значений (без ключей), 
 // где каждое значение может появляться только один раз.
@@ -106,6 +167,15 @@ for (let product of setProduct) {
 // присутствует для обратной совместимости с Map,
 // set.entries() – возвращает перебираемый объект для пар вида [значение, значение], 
 // присутствует для обратной совместимости с Map.
+
+const names = ['Kate', 'Sergei', 'Ivan', 'Alex', 'Kate', 'Sergei'];
+
+function createArrayFromSet(arr) {
+  return [...new Set(arr)];
+  // return Array.from(new Set(arr)); // Идентичные операции
+}
+
+console.log(createArrayFromSet(names));
 
 //////////////////////////////////////////
 const arr22 = ["HTML", "Angular", "JavaScript", "TypeScript", "HTML", "CSS", "Angular",];
