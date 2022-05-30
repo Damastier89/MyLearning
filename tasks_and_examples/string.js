@@ -59,3 +59,23 @@ function reverse(str) {
 }
 
 console.log(reverse(someString));
+
+// Вернет колличество символов в строке(страницы книги)
+function amountOfPages(summary) {
+  let allPage = '';
+  let n = 0;
+
+  for (let i = 1; i <= summary; i++) {
+    allPage += i;
+
+    if (allPage.length === summary) {
+      n = i;
+      break;
+    }
+
+  }
+  console.log(`allPage`, allPage); // 1234567891011121314151617
+  return n;
+}
+
+console.log(amountOfPages(25));

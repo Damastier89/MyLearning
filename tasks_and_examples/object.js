@@ -155,4 +155,4 @@ function isBudgetEnough(data) {
   return `Общая площадь всех магазинов : ${allAquareShops} м².\nОбъем всех помещений : ${sizeAllMall} м³.\n${messageAboutPayment}`;
 }
 
-console.log(isBudgetEnough(shoppingMallData));
+// console.log(isBudgetEnough(shoppingMallData));
