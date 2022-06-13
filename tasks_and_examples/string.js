@@ -79,3 +79,21 @@ function amountOfPages(summary) {
 }
 
 console.log(amountOfPages(25));
+
+// Панграмма (с греч. — «все буквы»), или разнобуквица, — короткий текст, 
+// использующий все или почти все буквы алфавита, по возможности не повторяя их.
+const words = "The quick brown foxjumps over the lazy dog";
+
+// При помощи Set
+function isPangram(string) {
+  return new Set(string.toLocaleLowerCase().replace(/[^a-z]/gi, '').split('')).size === 26;
+}
+
+// С использованием регулярных выражений
+function _isPangram(string){
+  return (string.match(/([a-z])(?!.*\1)/ig) || []).length === 26;
+}
+
+console.log(isPangram(words)); // true
+console.log(_isPangram(words)); // true 
+console.log(_isPangram('Hello world')); // false

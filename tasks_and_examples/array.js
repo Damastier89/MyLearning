@@ -303,3 +303,120 @@ function sortStudentsByGroups(arr) {
 console.log(sortStudentsByGroups(students));
 console.log(sortStudentsByGroups(studentsMinusOne));
 console.log(sortStudentsByGroups(studentsPlusOne));
+
+// Подсчитать все элементы массива, в том числе и вложенные.
+const elements = [2, 'Kate', [3, 5], {names: 'Kate'}, {}];
+function deepCount(arr) {
+  let count = arr.length;
+  for (let i = 0; i < arr.length; i++) {
+
+    if (Array.isArray(arr[i])) {
+      count += deepCount(arr[i]);
+    }
+
+  }
+
+  return count;
+}
+
+console.log(deepCount(elements)); // 7
+
+// Перебор различных частей массива
+const films = [
+  {
+      name: 'Titanic',
+      rating: 9
+  },
+  {
+      name: 'Die hard 5',
+      rating: 5
+  },
+  {
+      name: 'Matrix',
+      rating: 8
+  },
+  {
+      name: 'Some bad film',
+      rating: 4
+  }
+];
+
+function showGoodFilms(arr) {
+  return arr.filter(item => item.rating >= 8);
+}
+
+// console.log(showGoodFilms(films)); // [ { name: 'Titanic', rating: 9 }, { name: 'Matrix', rating: 8 } ]
+
+function showListOfFilms(arr) {
+  const result = [];
+  arr.map(element => result.push(element.name));
+  return result.join(', ');
+  // return arr.reduce((acc, current) => ${typeof(acc) === 'object' ? acc.name : acc}, ${current.name});
+}
+
+// console.log(showListOfFilms(films)); // Titanic, Die hard 5, Matrix, Some bad film
+
+function setFilmsIds(arr) {
+  const result = [];
+  arr.map((element, index) => {
+    element.id = index
+    result.push(element);
+  });
+
+  return result;
+}
+
+// console.log(setFilmsIds(films));
+// [
+//   { name: 'Titanic', rating: 9, id: 0 },
+//   { name: 'Die hard 5', rating: 5, id: 1 },
+//   { name: 'Matrix', rating: 8, id: 2 },
+//   { name: 'Some bad film', rating: 4, id: 3 }
+// ]
+
+const tranformedArray = setFilmsIds(films);
+
+// При срабатывании every на первом фильме он натыкается на id = 0;
+// 0 - это неправда в логическом ключе, поэтому и весь метод возвращает false
+function checkFilms(arr) {
+  return arr.every(film => film.id || film.id === 0 ? true : false);
+}
+
+console.log(checkFilms(tranformedArray));
+
+const funds = [
+  {amount: -1400},
+  {amount: 2400},
+  {amount: -1000},
+  {amount: 500},
+  {amount: 10400},
+  {amount: -11400}
+];
+
+function getPositiveIncomeAmount(data) {
+  let result = 0;
+  data.map(element => {
+    if (element.amount > 0) {
+      result += element.amount;
+    }
+  });
+
+  return result;
+};
+
+// console.log(getPositiveIncomeAmount(funds));
+
+function getTotalIncomeAmount(data) {
+  let result;
+  data.forEach(element => {
+    if (element.amount > 0) {
+      result = getPositiveIncomeAmount(data);
+    } else {
+      result = data.reduce((acc, element) => {return acc += element.amount},0);
+    }
+  });
+
+  return result;
+};
+
+console.log(getTotalIncomeAmount(funds));
